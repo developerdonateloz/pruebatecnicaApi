@@ -59,7 +59,7 @@ namespace ApiPruebaTecnica.Controllers
         {
             try
             {
-                var matriculas = _matriculaService.GetMatriculas(param);
+                var matriculas = await _matriculaService.GetMatriculas(param);
 
                 return Ok(matriculas);
             }

@@ -38,7 +38,7 @@ namespace ApiPruebaTecnica.Services
                 throw new Exception($"La máxima longitud del campo Cod_Alumno es de 9 caracteres.");
             }
             var existeMatricula = await _context.Matriculas.AnyAsync(q => q.Id_Matricula == param.Id_Matricula);
-            
+
             if (existeMatricula)
             {
                 throw new Exception($"La matrícula con ID: {param.Id_Matricula} ya existe.");
@@ -70,25 +70,57 @@ namespace ApiPruebaTecnica.Services
                 throw new Exception($"linea de negocio obligatorio");
             }
 
-            var resultado = await _context.Matriculas
-                .Join(_context.DetallesMatricula, x => x.Id_Matricula, y => y.Matricula_Id_Matricula,
-                    (x, y) => new { x, y })
-                .Join(_context.Cursos, a => a.y.Curso_Cod_Curso, b => b.Cod_Curso,
-                    (a, b) => new { a, b })
-                .Where(q => q.a.x.Cod_Linea_Negocio == param.linea_negocio &&
-                            (q.a.x.Cod_Modal_Est == param.modalidad || q.a.x.Cod_Alumno == param.codigo_alumno ||
-                             q.a.x.Cod_Periodo == param.codigo_periodo))
+            var resultado = _context.Matriculas
+                .GroupJoin(_context.DetallesMatricula, x => x.Id_Matricula, y => y.Matricula_Id_Matricula, (x, y) => new
+                {
+                    matriculas = x,
+                    y
+                })
+                .SelectMany(q => q.y.DefaultIfEmpty(), (x, y) => new
+                {
+                    x.matriculas,
+                    detalles = y
+                }
+                )
+                .GroupJoin(_context.Cursos, a => a.detalles.Curso_Cod_Curso, b => b.Cod_Curso, (a, b) => new
+                {
+                    a.matriculas,
+                    a.detalles,
+                    cursos = b
+                })
+                .SelectMany(q => q.cursos.DefaultIfEmpty(), (x, y) => new
+                {
+                    x.matriculas,
+                    x.detalles,
+                    x.cursos,
+                })
+                .Where(q => q.matriculas.Cod_Linea_Negocio == param.linea_negocio)
                 .Select(s => new MatriculaDto
                 {
-                    Cod_Linea_Negocio = s.a.x.Cod_Linea_Negocio,
-                    Cod_Modal_Est = s.a.x.Cod_Modal_Est,
-                    Cod_Periodo = s.a.x.Cod_Periodo,
-                    Cod_Alumno = s.a.x.Cod_Alumno,
-                    Usuario_Creador = s.a.x.Usuario_Creador,
-                    Fecha_Creacion = s.a.x.Fecha_Creacion
-                }).ToListAsync();
-            
-            return resultado;
+                    Cod_Linea_Negocio = s.matriculas.Cod_Linea_Negocio,
+                    Cod_Modal_Est = s.matriculas.Cod_Modal_Est,
+                    Cod_Periodo = s.matriculas.Cod_Periodo,
+                    Cod_Alumno = s.matriculas.Cod_Alumno,
+                    Usuario_Creador = s.matriculas.Usuario_Creador,
+                    Fecha_Creacion = s.matriculas.Fecha_Creacion
+                });
+
+            if (!string.IsNullOrWhiteSpace(param.modalidad))
+            {
+                resultado = resultado.Where(q => q.Cod_Modal_Est == param.modalidad);
+            }
+
+            if (!string.IsNullOrWhiteSpace(param.codigo_periodo))
+            {
+                resultado = resultado.Where(q => q.Cod_Periodo == param.codigo_periodo);
+            }
+
+            if (!string.IsNullOrWhiteSpace(param.codigo_alumno))
+            {
+                resultado = resultado.Where(q => q.Cod_Alumno == param.codigo_alumno);
+            }
+
+            return await resultado.ToListAsync();
         }
     }
 }
