@@ -26,10 +26,10 @@ namespace ApiPruebaTecnica.DbModel.Entities
         public DateTime Fecha_Creacion { get; set; }
 
         [Column(TypeName = "Varchar(8)")]
-        public string Usuario_Modificador { get; set; }
+        public string? Usuario_Modificador { get; set; }
 
         [Column(TypeName = "Date")]
-        public DateTime Fecha_Modificacion { get; set; }
+        public DateTime? Fecha_Modificacion { get; set; }
 
     }
 }

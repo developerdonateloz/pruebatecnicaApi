@@ -16,8 +16,29 @@ namespace ApiPruebaTecnica.Services
         }
         public async Task<Matricula> CreateMatricula(MatriculaRequestParams param)
         {
-            var existeMatricula = await _context.Matriculas.AnyAsync(q => q.Id_Matricula == param.Id_Matricula);
+            if (param.Usuario_Creador.Length > 8)
+            {
+                throw new Exception($"La máxima longitud del campo Usuario_Creador es de 8 caracteres.");
+            }
 
+            if (param.Cod_Linea_Negocio.Length > 1)
+            {
+                throw new Exception($"La máxima longitud del campo Cod_Linea_Negocio es de 1 caracter.");
+            }
+            if (param.Cod_Modal_Est.Length > 2)
+            {
+                throw new Exception($"La máxima longitud del campo Modal_Est es de 2 caracteres.");
+            }
+            if (param.Cod_Periodo.Length > 6)
+            {
+                throw new Exception($"La máxima longitud del campo Cod_Periodo es de 6 caracteres.");
+            }
+            if (param.Cod_Alumno.Length > 9)
+            {
+                throw new Exception($"La máxima longitud del campo Cod_Alumno es de 9 caracteres.");
+            }
+            var existeMatricula = await _context.Matriculas.AnyAsync(q => q.Id_Matricula == param.Id_Matricula);
+            
             if (existeMatricula)
             {
                 throw new Exception($"La matrícula con ID: {param.Id_Matricula} ya existe.");
@@ -31,7 +52,7 @@ namespace ApiPruebaTecnica.Services
                 Cod_Periodo = param.Cod_Periodo,
                 Cod_Alumno = param.Cod_Alumno,
                 Usuario_Creador = param.Usuario_Creador,
-                Fecha_Creacion = DateTime.UtcNow,
+                Fecha_Creacion = DateTime.UtcNow
             };
 
             _context.Matriculas.Add(matricula);

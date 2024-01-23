@@ -12,8 +12,8 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace ApiPruebaTecnica.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240122220945_Initial2")]
-    partial class Initial2
+    [Migration("20240123040920_Initial3")]
+    partial class Initial3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,7 +40,7 @@ namespace ApiPruebaTecnica.Migrations
                     b.Property<DateTime>("Fecha_Creacion")
                         .HasColumnType("Date");
 
-                    b.Property<DateTime>("Fecha_Modificacion")
+                    b.Property<DateTime?>("Fecha_Modificacion")
                         .HasColumnType("Date");
 
                     b.Property<string>("Usuario_Creador")
@@ -48,7 +48,6 @@ namespace ApiPruebaTecnica.Migrations
                         .HasColumnType("Varchar(8)");
 
                     b.Property<string>("Usuario_Modificador")
-                        .IsRequired()
                         .HasColumnType("Varchar(8)");
 
                     b.HasKey("Cod_Curso", "Cod_Linea_Negocio");
@@ -75,7 +74,7 @@ namespace ApiPruebaTecnica.Migrations
                     b.Property<DateTime>("Fecha_Creacion")
                         .HasColumnType("Date");
 
-                    b.Property<DateTime>("Fecha_Modificacion")
+                    b.Property<DateTime?>("Fecha_Modificacion")
                         .HasColumnType("Date");
 
                     b.Property<string>("Grupo")
@@ -94,7 +93,6 @@ namespace ApiPruebaTecnica.Migrations
                         .HasColumnType("Varchar(8)");
 
                     b.Property<string>("Usuario_Modificador")
-                        .IsRequired()
                         .HasColumnType("Varchar(8)");
 
                     b.HasKey("Id");
@@ -129,7 +127,7 @@ namespace ApiPruebaTecnica.Migrations
                     b.Property<DateTime>("Fecha_Creacion")
                         .HasColumnType("Date");
 
-                    b.Property<DateTime>("Fecha_Modificacion")
+                    b.Property<DateTime?>("Fecha_Modificacion")
                         .HasColumnType("Date");
 
                     b.Property<string>("Usuario_Creador")
@@ -137,7 +135,6 @@ namespace ApiPruebaTecnica.Migrations
                         .HasColumnType("Varchar(8)");
 
                     b.Property<string>("Usuario_Modificador")
-                        .IsRequired()
                         .HasColumnType("Varchar(8)");
 
                     b.HasKey("Id_Matricula");

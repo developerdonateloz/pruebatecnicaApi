@@ -37,7 +37,7 @@ namespace ApiPruebaTecnica.Migrations
                     b.Property<DateTime>("Fecha_Creacion")
                         .HasColumnType("Date");
 
-                    b.Property<DateTime>("Fecha_Modificacion")
+                    b.Property<DateTime?>("Fecha_Modificacion")
                         .HasColumnType("Date");
 
                     b.Property<string>("Usuario_Creador")
@@ -45,7 +45,6 @@ namespace ApiPruebaTecnica.Migrations
                         .HasColumnType("Varchar(8)");
 
                     b.Property<string>("Usuario_Modificador")
-                        .IsRequired()
                         .HasColumnType("Varchar(8)");
 
                     b.HasKey("Cod_Curso", "Cod_Linea_Negocio");
@@ -72,7 +71,7 @@ namespace ApiPruebaTecnica.Migrations
                     b.Property<DateTime>("Fecha_Creacion")
                         .HasColumnType("Date");
 
-                    b.Property<DateTime>("Fecha_Modificacion")
+                    b.Property<DateTime?>("Fecha_Modificacion")
                         .HasColumnType("Date");
 
                     b.Property<string>("Grupo")
@@ -91,7 +90,6 @@ namespace ApiPruebaTecnica.Migrations
                         .HasColumnType("Varchar(8)");
 
                     b.Property<string>("Usuario_Modificador")
-                        .IsRequired()
                         .HasColumnType("Varchar(8)");
 
                     b.HasKey("Id");
@@ -126,7 +124,7 @@ namespace ApiPruebaTecnica.Migrations
                     b.Property<DateTime>("Fecha_Creacion")
                         .HasColumnType("Date");
 
-                    b.Property<DateTime>("Fecha_Modificacion")
+                    b.Property<DateTime?>("Fecha_Modificacion")
                         .HasColumnType("Date");
 
                     b.Property<string>("Usuario_Creador")
@@ -134,7 +132,6 @@ namespace ApiPruebaTecnica.Migrations
                         .HasColumnType("Varchar(8)");
 
                     b.Property<string>("Usuario_Modificador")
-                        .IsRequired()
                         .HasColumnType("Varchar(8)");
 
                     b.HasKey("Id_Matricula");

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ApiPruebaTecnica.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial2 : Migration
+    public partial class Initial3 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,8 +20,8 @@ namespace ApiPruebaTecnica.Migrations
                     DescCurso = table.Column<string>(name: "Desc_Curso", type: "Varchar(100)", nullable: false),
                     UsuarioCreador = table.Column<string>(name: "Usuario_Creador", type: "Varchar(8)", nullable: false),
                     FechaCreacion = table.Column<DateTime>(name: "Fecha_Creacion", type: "Date", nullable: false),
-                    UsuarioModificador = table.Column<string>(name: "Usuario_Modificador", type: "Varchar(8)", nullable: false),
-                    FechaModificacion = table.Column<DateTime>(name: "Fecha_Modificacion", type: "Date", nullable: false)
+                    UsuarioModificador = table.Column<string>(name: "Usuario_Modificador", type: "Varchar(8)", nullable: true),
+                    FechaModificacion = table.Column<DateTime>(name: "Fecha_Modificacion", type: "Date", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -38,8 +38,8 @@ namespace ApiPruebaTecnica.Migrations
                     Grupo = table.Column<string>(type: "Char(2)", nullable: false),
                     UsuarioCreador = table.Column<string>(name: "Usuario_Creador", type: "Varchar(8)", nullable: false),
                     FechaCreacion = table.Column<DateTime>(name: "Fecha_Creacion", type: "Date", nullable: false),
-                    UsuarioModificador = table.Column<string>(name: "Usuario_Modificador", type: "Varchar(8)", nullable: false),
-                    FechaModificacion = table.Column<DateTime>(name: "Fecha_Modificacion", type: "Date", nullable: false),
+                    UsuarioModificador = table.Column<string>(name: "Usuario_Modificador", type: "Varchar(8)", nullable: true),
+                    FechaModificacion = table.Column<DateTime>(name: "Fecha_Modificacion", type: "Date", nullable: true),
                     MatriculaIdMatricula = table.Column<int>(name: "Matricula_Id_Matricula", type: "NUMBER(10)", nullable: false),
                     CursoCodCurso = table.Column<string>(name: "Curso_Cod_Curso", type: "NVARCHAR2(2000)", nullable: false),
                     CursoLineaNegocio = table.Column<string>(name: "Curso_Linea_Negocio", type: "NVARCHAR2(2000)", nullable: false)
@@ -61,8 +61,8 @@ namespace ApiPruebaTecnica.Migrations
                     CodAlumno = table.Column<string>(name: "Cod_Alumno", type: "Varchar(9)", nullable: false),
                     UsuarioCreador = table.Column<string>(name: "Usuario_Creador", type: "Varchar(8)", nullable: false),
                     FechaCreacion = table.Column<DateTime>(name: "Fecha_Creacion", type: "Date", nullable: false),
-                    UsuarioModificador = table.Column<string>(name: "Usuario_Modificador", type: "Varchar(8)", nullable: false),
-                    FechaModificacion = table.Column<DateTime>(name: "Fecha_Modificacion", type: "Date", nullable: false)
+                    UsuarioModificador = table.Column<string>(name: "Usuario_Modificador", type: "Varchar(8)", nullable: true),
+                    FechaModificacion = table.Column<DateTime>(name: "Fecha_Modificacion", type: "Date", nullable: true)
                 },
                 constraints: table =>
                 {
